@@ -145,6 +145,7 @@ function update(item) {
 
 window.onload = function() {
     init();
+    recalculate(); // to highlight initial values
     connectSocket();
 };
 
