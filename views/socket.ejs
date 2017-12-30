@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Test</title>
+  <title><%= symbol %> - Binance</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 </head>
@@ -98,9 +98,13 @@
         <%= new Date(parseInt(last_trade_timestamp)).toTimeString().substring(0,15) %>
       </p2><br>
       <p2>Min Amount: </p2>
-      <p2 id="min"><%= min %></p2><br>
+      <p2 id="min">
+        <%= min %>
+      </p2><br>
       <p2>Symbol: </p2>
-      <p2 id="symbol"><%= symbol %></p2>
+      <p2 id="symbol">
+        <%= symbol %>
+      </p2>
     </div>
   </div>
 
@@ -108,8 +112,8 @@
     <script>
       var REST_TRADES = JSON.parse('<%- JSON.stringify(trades) %>');
     </script>
-  <% } %>
-  <script src="/js/socket.js"></script>
+    <% } %>
+      <script src="/js/socket.js"></script>
 </body>
 
 </html>

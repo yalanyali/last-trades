@@ -1,14 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const app = express()
+const app = express();
 
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
     res.render('index', {
@@ -16,12 +16,12 @@ app.get('/', function(req, res) {
         last500: null,
         error: null
     });
-})
+});
 
 app.post('/', function(req, res) {
     let symbol = req.body.symbol.toUpperCase();
     let min = req.body.min;
-    let url = `https://api.binance.com/api/v1/aggTrades?symbol=${symbol}`
+    let url = `https://api.binance.com/api/v1/aggTrades?symbol=${symbol}`;
 
     request(url, function(err, response, body) {
         if (err) {
@@ -67,6 +67,7 @@ app.post('/', function(req, res) {
                         volume: 0
                     }
                 };
+
                 let last_trade_timestamp = trades[499]['T'];
                 trades.forEach(function(item, index) {
                     // Last 100
@@ -77,7 +78,7 @@ app.post('/', function(req, res) {
                             last100.seller.volume += parseFloat(item['q']);
                             if (parseFloat(item['q']) > min) {
                                 last100.seller.big++;
-                                if (parseFloat(item['q']) > min*2) {
+                                if (parseFloat(item['q']) > min * 2) {
                                     last100.seller.bigger++;
                                 }
                             }
@@ -86,7 +87,7 @@ app.post('/', function(req, res) {
                             last100.buyer.volume += parseFloat(item['q']);
                             if (parseFloat(item['q']) > min) {
                                 last100.buyer.big++;
-                                if (parseFloat(item['q']) > min*2) {
+                                if (parseFloat(item['q']) > min * 2) {
                                     last100.buyer.bigger++;
                                 }
                             }
@@ -100,7 +101,7 @@ app.post('/', function(req, res) {
                         last500.seller.volume += parseFloat(item['q']);
                         if (parseFloat(item['q']) > min) {
                             last500.seller.big++;
-                            if (parseFloat(item['q']) > min*2) {
+                            if (parseFloat(item['q']) > min * 2) {
                                 last100.seller.bigger++;
                             }
                         }
@@ -109,7 +110,7 @@ app.post('/', function(req, res) {
                         last500.buyer.volume += parseFloat(item['q']);
                         if (parseFloat(item['q']) > min) {
                             last500.buyer.big++;
-                            if (parseFloat(item['q']) > min*2) {
+                            if (parseFloat(item['q']) > min * 2) {
                                 last100.buyer.bigger++;
                             }
                         }
@@ -130,5 +131,5 @@ app.post('/', function(req, res) {
 })
 
 app.listen(process.env.PORT || 3000, function() {
-    console.log('Listening on port 3000')
+    console.log('Listening on port 3000...');
 });

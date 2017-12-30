@@ -5,7 +5,7 @@ let counter = 0;
 
 function recalculate() {
     // Reset
-    last100 = {
+    last500 = {
         seller: {
             total: 0,
             big: 0,
@@ -20,7 +20,7 @@ function recalculate() {
         }
     };
 
-    last500 = {
+    last100 = {
         seller: {
             total: 0,
             big: 0,
@@ -42,7 +42,7 @@ function recalculate() {
                 last100.seller.total++;
                 if (parseFloat(t['q']) > min) {
                     last100.seller.big++;
-                    if (parseFloat(t['q']) > min*2) {
+                    if (parseFloat(t['q']) > min * 2) {
                         last100.seller.bigger++;
                     }
                 }
@@ -51,7 +51,7 @@ function recalculate() {
                 last100.buyer.total++;
                 if (parseFloat(t['q']) > min) {
                     last100.buyer.big++;
-                    if (parseFloat(t['q']) > min*2) {
+                    if (parseFloat(t['q']) > min * 2) {
                         last100.buyer.bigger++;
                     }
                 }
@@ -63,17 +63,16 @@ function recalculate() {
             last500.seller.total++;
             if (parseFloat(t['q']) > min) {
                 last500.seller.big++;
-                if (parseFloat(t['q']) > min*2) {
+                if (parseFloat(t['q']) > min * 2) {
                     last500.seller.bigger++;
                 }
             }
             last500.seller.volume += parseFloat(t['q']);
-        }
-        else {
+        } else {
             last500.buyer.total++;
             if (parseFloat(t['q']) > min) {
                 last500.buyer.big++;
-                if (parseFloat(t['q']) > min*2) {
+                if (parseFloat(t['q']) > min * 2) {
                     last500.buyer.bigger++;
                 }
             }
@@ -83,22 +82,28 @@ function recalculate() {
 
     // Rewrite values on page
     document.getElementById("seller_total100").innerHTML = last100.seller.total;
-    document.getElementById("seller_big100").innerHTML = last100.seller.big;
-    document.getElementById("seller_bigger100").innerHTML = last100.seller.bigger;
-    document.getElementById("seller_volume100").innerHTML = Math.round(last100.seller.volume);
     document.getElementById("seller_total500").innerHTML = last500.seller.total;
+
+    document.getElementById("seller_big100").innerHTML = last100.seller.big;
     document.getElementById("seller_big500").innerHTML = last500.seller.big;
+
+    document.getElementById("seller_bigger100").innerHTML = last100.seller.bigger;
     document.getElementById("seller_bigger500").innerHTML = last500.seller.bigger;
+
+    document.getElementById("seller_volume100").innerHTML = Math.round(last100.seller.volume);
     document.getElementById("seller_volume500").innerHTML = Math.round(last500.seller.volume);
 
 
     document.getElementById("buyer_total100").innerHTML = last100.buyer.total;
-    document.getElementById("buyer_big100").innerHTML = last100.buyer.big;
-    document.getElementById("buyer_bigger100").innerHTML = last100.buyer.bigger;
-    document.getElementById("buyer_volume100").innerHTML = Math.round(last100.buyer.volume);
     document.getElementById("buyer_total500").innerHTML = last500.buyer.total;
+
+    document.getElementById("buyer_big100").innerHTML = last100.buyer.big;
     document.getElementById("buyer_big500").innerHTML = last500.buyer.big;
+
+    document.getElementById("buyer_bigger100").innerHTML = last100.buyer.bigger;
     document.getElementById("buyer_bigger500").innerHTML = last500.buyer.bigger;
+
+    document.getElementById("buyer_volume100").innerHTML = Math.round(last100.buyer.volume);
     document.getElementById("buyer_volume500").innerHTML = Math.round(last500.buyer.volume);
 }
 
@@ -111,11 +116,11 @@ function update(item) {
         trades.push(item);
     }
     // Update timestamp
-    document.getElementById("last_trade_timestamp").innerHTML = new Date(parseInt(item['T'])).toTimeString().substring(0,15);
+    document.getElementById("last_trade_timestamp").innerHTML = new Date(parseInt(item['T'])).toTimeString().substring(0, 15);
 
     // Recalculate values on page every 300 updates
     counter++;
-    if (counter=>300) {
+    if (counter => 300) {
         recalculate();
         counter = 0;
     }
@@ -127,7 +132,7 @@ window.onload = function() {
 };
 
 function init() {
-    // Enable charts and info
+    // Enable charts and info footer
     document.getElementById("charts").style.display = 'flex';
     document.getElementById("info").style.display = 'block';
 
