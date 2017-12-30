@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div class="container">
+    <fieldset>
+      <form action="/" method="post">
+        <input name="symbol" type="text" class="ghost-input" placeholder="Enter Symbol" required>
+        <input name="min" type="text" class="ghost-input" placeholder="Enter Min Amount" required>
+        <input type="submit" class="ghost-button" value="Get Trades">
+      </form>
+    </fieldset>
+
+    <div id="charts" class="charts">
+      <div class="wrapper">
+        <span>Last 100 Trades</span>
+        <div class="box">
+          <span class="title">Buyer Count</span>
+          <span class="content" id="buyer_total100"><%= last100.buyer.total %></span>
+        </div>
+        <div class="box">
+          <span class="title">Seller Count</span>
+          <span class="content" id="seller_total100"><%= last100.seller.total %></span>
+        </div>
+        <div class="box">
+          <span class="title">Buy Volume</span>
+          <span class="content" id="buyer_volume100"><%= Math.round(last100.buyer.volume) %></span>
+        </div>
+        <div class="box">
+          <span class="title">Sell Volume</span>
+          <span class="content" id="seller_volume100"><%= Math.round(last100.seller.volume) %></span>
+        </div>
+        <div class="box">
+          <span class="title">Big Buyers</span>
+          <span class="content" id="buyer_big100"><%= last100.buyer.big %></span>
+        </div>
+        <div class="box">
+          <span class="title">Big Sellers</span>
+          <span class="content" id="seller_big100"><%= last100.seller.big %></span>
+        </div>
+        <div class="box">
+          <span class="title">Bigger Buyers</span>
+          <span class="content" id="buyer_bigger100"><%= last100.buyer.bigger %></span>
+        </div>
+        <div class="box">
+          <span class="title">Bigger Sellers</span>
+          <span class="content" id="seller_bigger100"><%= last100.seller.bigger %></span>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <span>Last 500 Trades</span>
+        <div class="box">
+          <span class="title">Buyer Count</span>
+          <span class="content" id="buyer_total500"><%= last500.buyer.total %></span>
+        </div>
+        <div class="box">
+          <span class="title">Seller Count</span>
+          <span class="content" id="seller_total500"><%= last500.seller.total %></span>
+        </div>
+        <div class="box">
+          <span class="title">Buy Volume</span>
+          <span class="content" id="buyer_volume500"><%= Math.round(last500.buyer.volume) %></span>
+        </div>
+        <div class="box">
+          <span class="title">Sell Volume</span>
+          <span class="content" id="seller_volume500"><%= Math.round(last500.seller.volume) %></span>
+        </div>
+        <div class="box">
+          <span class="title">Big Buyers</span>
+          <span class="content" id="buyer_big500"><%= last500.buyer.big %></span>
+        </div>
+        <div class="box">
+          <span class="title">Big Sellers</span>
+          <span class="content" id="seller_big500"><%= last500.seller.big %></span>
+        </div>
+        <div class="box">
+          <span class="title">Bigger Buyers</span>
+          <span class="content" id="buyer_bigger500"><%= last500.buyer.bigger %></span>
+        </div>
+        <div class="box">
+          <span class="title">Bigger Sellers</span>
+          <span class="content" id="seller_bigger500"><%= last500.seller.bigger %></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="info" style="display: none" class="info">
+      <p2>Last trade: </p2>
+      <p2 id="last_trade_timestamp">
+        <%= new Date(parseInt(last_trade_timestamp)).toTimeString().substring(0,15) %>
+      </p2><br>
+      <p2>Min Amount: </p2>
+      <p2 id="min"><%= min %></p2><br>
+      <p2>Symbol: </p2>
+      <p2 id="symbol"><%= symbol %></p2>
+    </div>
+  </div>
+
+  <% if (trades) { %>
+    <script>
+      var REST_TRADES = JSON.parse('<%- JSON.stringify(trades) %>');
+    </script>
+  <% } %>
+  <script src="/js/socket.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+.charts {
+  display: none;
+  margin: 0 auto;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+fieldset {
+  display: block;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-before: 0em;
+  -webkit-padding-start: 0em;
+  -webkit-padding-end: 0em;
+  -webkit-padding-after: 0em;
+  border: 0px;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  min-width: -webkit-min-content;
+  padding: 30px;
+}
+.ghost-input, p {
+  display: block;
+  font-weight:300;
+  width: 100%;
+  font-size: 25px;
+  border:0px;
+  outline: none;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #4b545f;
+  background: #fff;
+  font-family: Open Sans,Verdana;
+  padding: 10px 15px;
+  margin: 30px 0px;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+.ghost-input:focus {
+  border-bottom:1px solid #ddd;
+}
+.ghost-button {
+  background-color: transparent;
+  border:2px solid #ddd;
+  padding:10px 30px;
+  width: 100%;
+  min-width: 350px;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+.ghost-button:hover {
+  border:2px solid #515151;
+}
+p {
+  color: #E64A19;
+}
+p2 {
+  padding:10px 30px;
+}
+
+table{
+  background-color: black;;
+  border-spacing: 0px;
+  text-align: center;
+}
+
+td{
+  padding: 0px 5px 0px 5px;
+  text-align: center;
+}
+
+tr th{
+  background-color: black;
+  color:white;
+  text-align: right;
+}
+
+
+tr:nth-child(2) td:nth-child(odd){
+  background-color:rgb(68, 199, 68);
+}
+tr:nth-child(3) td:nth-child(odd){
+  background-color:rgb(68, 199, 68);
+  font-size: 25px;
+  font-weight: 600;
+}
+tr:nth-child(4) td:nth-child(odd){
+  background-color:rgb(58, 167, 58);
+}
+tr:nth-child(5) td:nth-child(odd){
+  background-color:rgb(58, 167, 58);
+  font-size: 25px;
+  font-weight: 600;
+}
+tr:nth-child(6) td:nth-child(odd){
+  background-color:rgb(51, 145, 51);
+}
+tr:nth-child(7) td:nth-child(odd){
+  background-color:rgb(51, 145, 51);
+  font-size: 25px;
+  font-weight: 600;
+}
+tr:nth-child(8) td:nth-child(odd){
+  background-color:rgb(43, 121, 43);
+}
+tr:nth-child(9) td:nth-child(odd){
+  background-color:rgb(43, 121, 43);
+  font-size: 25px;
+  font-weight: 600;
+}
+
+tr:nth-child(2) td:nth-child(even){
+  background-color:rgb(235, 95, 70);
+}
+tr:nth-child(3) td:nth-child(even){
+  background-color:rgb(235, 95, 70);
+  font-size: 25px;
+  font-weight: 600;
+}
+tr:nth-child(4) td:nth-child(even){
+  background-color:rgb(211, 87, 65);
+}
+tr:nth-child(5) td:nth-child(even){
+  background-color:rgb(211, 87, 65);
+  font-size: 25px;
+  font-weight: 600;
+}
+tr:nth-child(6) td:nth-child(even){
+  background-color:rgb(184, 77, 58);
+}
+tr:nth-child(7) td:nth-child(even){
+  background-color:rgb(184, 77, 58);
+  font-size: 25px;
+  font-weight: 600;
+}
+tr:nth-child(8) td:nth-child(even){
+  background-color:rgb(156, 67, 51);
+}
+tr:nth-child(9) td:nth-child(even){
+  background-color:rgb(156, 67, 51);
+  font-size: 25px;
+  font-weight: 600;
+}
+
+/* -------------------- */
+
+.wrapper{
+  background-color: white;
+  height: 400px;
+  width:218px;
+  margin: 0 auto;
+  font-family: Open Sans,Verdana;
+  text-align: center;
+}
+
+.wrapper .box{
+  background-color: rgba(245, 245, 245, 0.295);
+  width:100px;
+  float:left;
+  border-radius: 5px;
+  margin:3px;
+  border: 1px solid #D4D8DC;
+  text-align: center;
+
+}
+
+.wrapper span{
+  display: block;
+}
+
+.title{
+  margin-top:10px;
+  font-size: 14px;
+  
+}
+
+.content{
+  font-size: 30px;
+  margin:5px;
+  margin-bottom:12px;
+}
+
+.info{
+  position: fixed;
+  text-align: center;
+  background-color: rgba(239, 239, 239, 0.466);
+  padding: 10px;
+  width: 100vw;
+  bottom: 0px;
+  left: 0px;
+  font-family: Open Sans,Verdana;
+}
+
+.info p2{
+  padding: 0px;
+  font-size: 14px;
+}
+
