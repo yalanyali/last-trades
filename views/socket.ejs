@@ -11,9 +11,9 @@
 <body>
   <div class="container">
     <fieldset>
-      <form action="/" method="post">
-        <input name="symbol" type="text" class="ghost-input" placeholder="Enter Symbol" required>
-        <input name="min" type="text" class="ghost-input" placeholder="Enter Min Amount" required>
+      <form onsubmit="return validateForm();" action="/" method="post">
+        <input name="symbol" id="form_symbol" type="text" class="ghost-input" placeholder="Enter Symbol">
+        <input name="min" id="form_min" type="text" class="ghost-input" placeholder="Enter Min Amount">
         <input type="submit" class="ghost-button" value="Get Trades">
       </form>
     </fieldset>
@@ -112,8 +112,23 @@
     <script>
       var REST_TRADES = JSON.parse('<%- JSON.stringify(trades) %>');
     </script>
-    <% } %>
-      <script src="/js/socket.js"></script>
+  <% } %>
+  <script type="text/javascript">
+    function validateForm() {
+      var form_symbol = document.getElementById('form_symbol');
+      var form_min = document.getElementById('form_min');
+
+      if (form_symbol.value.length === 0) {
+      form_symbol.value = document.getElementById('symbol').innerText;
+      }
+
+      if (form_min.value.length === 0) {
+      form_min.value = document.getElementById('min').innerText;
+      }
+      return true;
+    }
+  </script>
+  <script src="/js/socket.js"></script>
 </body>
 
 </html>
