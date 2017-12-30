@@ -90,8 +90,8 @@ function recalculate() {
     document.getElementById("seller_bigger100").innerHTML = last100.seller.bigger;
     document.getElementById("seller_bigger500").innerHTML = last500.seller.bigger;
 
-    document.getElementById("seller_volume100").innerHTML = Math.round(last100.seller.volume);
-    document.getElementById("seller_volume500").innerHTML = Math.round(last500.seller.volume);
+    document.getElementById("seller_volume100").innerHTML = last100.seller.volume > 999 ? Math.round(last100.seller.volume/1000) + 'k' : Math.round(last100.seller.volume);
+    document.getElementById("seller_volume500").innerHTML = last500.seller.volume > 999 ? Math.round(last500.seller.volume/1000) + 'k' : Math.round(last500.seller.volume);
 
 
     document.getElementById("buyer_total100").innerHTML = last100.buyer.total;
@@ -103,8 +103,28 @@ function recalculate() {
     document.getElementById("buyer_bigger100").innerHTML = last100.buyer.bigger;
     document.getElementById("buyer_bigger500").innerHTML = last500.buyer.bigger;
 
-    document.getElementById("buyer_volume100").innerHTML = Math.round(last100.buyer.volume);
-    document.getElementById("buyer_volume500").innerHTML = Math.round(last500.buyer.volume);
+    document.getElementById("buyer_volume100").innerHTML = last100.buyer.volume > 999 ? Math.round(last100.buyer.volume/1000) + 'k' : Math.round(last100.buyer.volume);
+    document.getElementById("buyer_volume500").innerHTML = last500.buyer.volume > 999 ? Math.round(last500.buyer.volume/1000) + 'k' : Math.round(last500.buyer.volume);
+
+    // Highlight cells
+    // Reset highlights
+    [].forEach.call(document.getElementsByClassName("box"), function (e) {e.classList.remove("highlight")});
+    // cond ? yes : no
+    last500.buyer.total > last500.seller.total ? highlight("buyer_total500") : highlight("seller_total500");
+    last500.buyer.volume > last500.seller.volume ? highlight("buyer_volume500") : highlight("seller_volume500");
+    last500.buyer.big > last500.seller.big ? highlight("buyer_big500") : highlight("seller_big500");
+    last500.buyer.bigger > last500.seller.bigger ? highlight("buyer_bigger500") : highlight("seller_bigger500");
+
+    last100.buyer.total > last100.seller.total ? highlight("buyer_total100") : highlight("seller_total100");
+    last100.buyer.volume > last100.seller.volume ? highlight("buyer_volume100") : highlight("seller_volume100");
+    last100.buyer.big > last100.seller.big ? highlight("buyer_big100") : highlight("seller_big100");
+    last100.buyer.bigger > last100.seller.bigger ? highlight("buyer_bigger100") : highlight("seller_bigger100");
+}
+
+function highlight(id) {
+    var e = document.getElementById(id);
+    // Box is parent
+    e.parentElement.classList.add("highlight");
 }
 
 function update(item) {

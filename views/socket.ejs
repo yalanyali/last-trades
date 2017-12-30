@@ -31,11 +31,11 @@
         </div>
         <div class="box">
           <span class="title">Buy Volume</span>
-          <span class="content" id="buyer_volume100"><%= Math.round(last100.buyer.volume) %></span>
+          <span class="content" id="buyer_volume100"><%= last100.buyer.volume > 999 ? Math.round(last100.buyer.volume/1000) + 'k' : Math.round(last100.buyer.volume) %></span>
         </div>
         <div class="box">
           <span class="title">Sell Volume</span>
-          <span class="content" id="seller_volume100"><%= Math.round(last100.seller.volume) %></span>
+          <span class="content" id="seller_volume100"><%= last100.seller.volume > 999 ? Math.round(last100.seller.volume/1000) + 'k' : Math.round(last100.seller.volume) %></span>
         </div>
         <div class="box">
           <span class="title">Big Buyers</span>
@@ -67,11 +67,11 @@
         </div>
         <div class="box">
           <span class="title">Buy Volume</span>
-          <span class="content" id="buyer_volume500"><%= Math.round(last500.buyer.volume) %></span>
+          <span class="content" id="buyer_volume500"><%= last500.buyer.volume > 999 ? Math.round(last500.buyer.volume/1000) + 'k' : Math.round(last500.buyer.volume) %></span>
         </div>
         <div class="box">
           <span class="title">Sell Volume</span>
-          <span class="content" id="seller_volume500"><%= Math.round(last500.seller.volume) %></span>
+          <span class="content" id="seller_volume500"><%= last500.seller.volume > 999 ? Math.round(last500.seller.volume/1000) + 'k' : Math.round(last500.seller.volume) %></span>
         </div>
         <div class="box">
           <span class="title">Big Buyers</span>

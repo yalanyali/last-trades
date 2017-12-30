@@ -209,3 +209,7 @@ tr:nth-child(9) td:nth-child(even){
   font-size: 14px;
 }
 
+.highlight{
+    background-color: rgba(188, 255, 163, 0.3) !important;
+    box-shadow: 0 0 5px rgba(183, 255, 156, 0.3);
+}
