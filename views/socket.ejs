@@ -97,20 +97,22 @@
       <p2 id="last_trade_timestamp">
         <%= new Date(parseInt(last_trade_timestamp)).toTimeString().substring(0,15) %>
       </p2><br>
-      <p2>Min Amount: </p2>
-      <p2 id="min">
+      <p2> Binance: <%= (bncUsed) ? "Available" : "Not Available" %></p2><br>
+      <p2> Bitfinex: <%= (bfxUsed) ? "Available" : "Not Available" %></p2>
+    </div>
+      <p2 style="display: none" id="min">
         <%= min %>
       </p2><br>
-      <p2>Symbol: </p2>
-      <p2 id="symbol">
+      <p2 style="display: none" id="symbol">
         <%= symbol %>
       </p2>
-    </div>
   </div>
 
   <% if (trades) { %>
     <script>
       var REST_TRADES = JSON.parse('<%- JSON.stringify(trades) %>');
+      var bncUsed = JSON.parse('<%- JSON.stringify(bncUsed) %>');
+      var bfxUsed = JSON.parse('<%- JSON.stringify(bfxUsed) %>');
     </script>
   <% } %>
   <script type="text/javascript">
@@ -129,6 +131,7 @@
     }
   </script>
   <script src="/js/socket.js"></script>
+  <!-- <script src="https://raw.githubusercontent.com/Pixabay/JavaScript-autoComplete/master/auto-complete.min.js"></script> -->
 </body>
 
 </html>

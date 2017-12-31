@@ -3,6 +3,34 @@ let min;
 let last100, last500;
 let counter = 0;
 let symbol;
+let pairsDict = {
+    "BCCBTC": "BCCBTC",
+    "BCCUSD": "BCCUSDT",
+    "BTCUSD": "BTCUSDT",
+    "BTGBTC": "BTGBTC",
+    "DSHBTC": "DASHBTC",
+    "EOSBTC": "EOSBTC",
+    "ETCBTC": "ETCBTC",
+    "ETHBTC": "ETHBTC",
+    "ETHUSD": "ETHUSDT",
+    "IOTBTC": "IOTABTC",
+    "IOTETH": "IOTAETH",
+    "LTCBTC": "LTCBTC",
+    "LTCUSD": "LTCUSDT",
+    "NEOBTC": "NEOBTC",
+    "NEOETH": "NEOETH",
+    "NEOUSD": "NEOUSDT",
+    "OMGBTC": "OMGBTC",
+    "OMGETH": "OMGETH",
+    "QTMBTC": "QTUMBTC",
+    "QTMETH": "QTUMETH",
+    "XMRBTC": "XMRBTC",
+    "XRPBTC": "XRPBTC",
+    "YYWBTC": "YOYOBTC",
+    "YYWETH": "YOYOETH",
+    "ZECBTC": "ZECBTC"
+};
+
 
 function recalculate() {
     // Reset
@@ -38,7 +66,7 @@ function recalculate() {
 
     for (var i = 0; i < 500; i++) {
         var t = trades[i];
-        if (i > 399) {
+        if (i >= 400) {
             if (t['m']) {
                 last100.seller.total++;
                 if (parseFloat(t['q']) > min) {
@@ -108,7 +136,9 @@ function recalculate() {
     document.getElementById("buyer_volume500").innerHTML = last500.buyer.volume > 999 ? Math.round(last500.buyer.volume / 1000) + 'k' : Math.round(last500.buyer.volume);
 
     // Reset highlights
-    [].forEach.call(document.getElementsByClassName("box"), function (e) {e.classList.remove("highlight")});
+    [].forEach.call(document.getElementsByClassName("box"), function(e) {
+        e.classList.remove("highlight")
+    });
 
     // Highlight cells
     var boxes = document.getElementsByClassName("box");
@@ -124,29 +154,65 @@ function recalculate() {
     }
 }
 
-function update(item) {
-    // Keep a fixed size of 500
-    if (trades.length < 500) {
-        trades.push(item);
+function update(trade) {
+    // Default items are Binance trades
+    var item = trade;
+    // Handle Bitfinex trades
+    if (trade.length !== undefined) {
+        if (trade.length === 3) {
+            if (trade.includes("tu")) {
+                var data = {
+                    'q': Math.abs(trade[2][2]).toString(),
+                    'T': trade[2][1],
+                    'm': (trade[2][2] < 0)
+                };
+                item = data;
+            } else {
+                return;
+            }
+        } else {
+            return;
+        }
     } else {
-        trades.shift();
-        trades.push(item);
     }
-    // Update timestamp
-    document.getElementById("last_trade_timestamp").innerHTML = new Date(parseInt(item['T'])).toTimeString().substring(0, 15);
 
-    // Recalculate values on page every 300 updates
-    counter++;
-    if (counter => 300) {
-        recalculate();
-        counter = 0;
+    // Binance trades
+    if (item['q'] !== undefined) {
+        // Keep a fixed size of 500
+        if (trades.length < 500) {
+            trades.push(item);
+        } else {
+            trades.shift();
+            trades.push(item);
+        }
+        // Update timestamp
+        document.getElementById("last_trade_timestamp").innerHTML = new Date(parseInt(item['T'])).toTimeString().substring(0, 15);
+
+        // Recalculate values on page every 300 updates
+        counter++;
+        if (counter => 300) {
+            recalculate();
+            counter = 0;
+        }
     }
 }
 
 window.onload = function() {
     init();
     recalculate(); // to highlight initial values
-    connectSocket();
+    if (bfxUsed && bncUsed) {
+        // Bfx symbol is the default
+        connectSocketBitfinex(symbol);
+        connectSocketBinance(pairsDict[symbol]);
+    }
+    else if (bncUsed) {
+        // Bnc only, bnc symbol
+        connectSocketBinance(symbol);
+    }
+    else if(bfxUsed) {
+        // Bfx only, bfx symbol
+        connectSocketBitfinex(symbol);
+    }
 };
 
 function init() {
@@ -156,7 +222,10 @@ function init() {
 
     // Load values from document
     trades = REST_TRADES;
-    symbol = document.getElementById("symbol").innerHTML.trim().toLowerCase();
+    symbol = document.getElementById("symbol").innerHTML.trim();
+
+    console.log("Symbol: " + symbol);
+
     min = parseFloat(document.getElementById("min").innerHTML);
 
     // Add placeholders for text input fields
@@ -165,12 +234,25 @@ function init() {
 
 }
 
-function connectSocket() {
-    var ws = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol}@aggTrade`);
+function connectSocketBinance(s) {
+    var ws = new WebSocket(`wss://stream.binance.com:9443/ws/${s.toLowerCase()}@aggTrade`);
 
     // Each trade data object as parameter for update()
     ws.onmessage = function(event) {
-        //console.log(event.data);
+        // console.log(event.data);
         update(JSON.parse(event.data));
     }
+}
+
+function connectSocketBitfinex(s) {
+    var wss = new WebSocket('wss://api.bitfinex.com/ws/2');
+
+    let msg = JSON.stringify({
+        "event": "subscribe",
+        "channel": "trades",
+        "symbol": `t${s}`
+    });
+
+    wss.onmessage = (res) => update(JSON.parse(res.data));
+    wss.onopen = () => wss.send(msg);
 }
