@@ -1,7 +1,8 @@
 # Last Trades
 
 Let's user see the last 100 and 500 trade volume and a couple of useful info on a selected currency pair on Bitfinex and Binance.
-It was just for prototyping, so it's not clean and well written, wouldn't recommend for prod.
+It was just for prototyping, so it's not clean and well written, wouldn't recommend for prod.<br><br>
+A somewhat functional demo can be found at https://last-trades.herokuapp.com/
 
 ![alt text](https://i.imgur.com/bRhaUXm.png)
 
